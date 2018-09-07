@@ -2,30 +2,26 @@ import React, {Component, PureComponent} from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Create from './Create';
 import Recipe from './Recipe.js';
-import Search from './Search';
 
 class RecipeList extends React.PureComponent{
+
+  handleClick = (e) => {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  };
+
   constructor(props) {
-
-    var queryString = require('query-string');
-    var parsed = queryString.parse(document.location.search);
-
       super(props); 
-      //this.handleInputChange = this.handleInputChange.bind(this);
           this.state = {
-          deleteOk: (parsed.delete=="true"),
-          searched: (parsed.search=="true"),
           recipeId: null,
           id: null,
-          title: null,
-          name: null,
           order: "order=title.asc",
           criteria: null,
           results: null,
           error: null,
           body: null
           };
-  
+          
         fetch("http://localhost:3000/recipes")  
         .then(
           res =>{
@@ -39,12 +35,13 @@ class RecipeList extends React.PureComponent{
           }
         ).then(results=> {
           this.setState({results})
-        })
-        
+        })     
       }
 
-      deleteRecipe(recipeId){  
-        fetch("http://localhost:3000/recipes?id=eq."+ recipeId, {
+      
+      deleteRecipe(recipeId){
+    
+        fetch("http://localhost:3000/recipes?id=eq."+recipeId, {
           method: 'DELETE',
         }).then(
           res =>{
@@ -56,34 +53,17 @@ class RecipeList extends React.PureComponent{
               this.setState({error: res})
             }
           }
-        ).then(results => {
+        ).then(results=> {
           window.location.reload();
-        }) 
+        })  
       }
-      
-
       handleSubmit(event) { 
         event.preventDefault();
       }
 
-  
-
       render() {
-        var deleteOk = this.state.deleteOk;
-        var results = this.state.results;
-        var button;
-        button = deleteOk?<Link to={`/`} onChange={()=>this.recipe(results.id)}> DELETE </Link> : ('')
-        var searched;
-        var toggle = searched? <Search /> : ('')
         return (
           <div>
-            {/* <form onSubmit={()=> this.search()}>
-            <input name="title" type="text" onChange={this.handleInputChange}/> 
-              <button>SEARCH</button>
-            </form> */}
-            {toggle}
-              
-
             {this.state.results != null &&  
               <div className="results">
                      <h1> There Are {this.state.results.length} Recipes:</h1> 
@@ -92,10 +72,10 @@ class RecipeList extends React.PureComponent{
                               return (                   
                                 <div className="recipe" key={results.id} id={results.id}>       
                                   <div><h2>
-                                    <Link to={`/recipe/${results.id}`}> {results.title.toUpperCase()}</Link> </h2>
+                                    <Link to={`/recipe/${results.id}`}> {results.title.toUpperCase() }</Link> </h2>
                                     <h3>
-                                    <Link to={`/edit/${results.id}`}> EDIT </Link> 
-                                    {button}                            
+                                    <Link to={`/edit/${results.id}`}> EDIT </Link>
+                                    <Link to={`/`} onClick={()=>this.deleteRecipe(results.id)}> DELETE </Link>
                                     </h3>
                                   </div>          
                                 </div>
@@ -107,7 +87,7 @@ class RecipeList extends React.PureComponent{
             }
             {this.state.error != null && 
               <div className="results"> 
-                      <div><h2> Error: {this.state.error.status} {this.state.error.value} {}</h2>   
+                      <div><h2> Error: {this.state.error.status} {this.state.error.value} {}</h2>          
                       </div>
               </div> 
             } 
