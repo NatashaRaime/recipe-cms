@@ -1,0 +1,61 @@
+div#root {
+    width: 90%;
+    height: max-content;
+    display: block;
+    color: rgb(15, 57, 82);
+    background-color: whitesmoke;
+    font-family: "Poiret One";
+    font-weight: lighter;
+    margin: 2% 3%;
+    padding: 4% 0; 
+    font-size: 18px;
+  }
+
+  input, h3,button{
+    width: 75%;
+    display: block;
+    margin: 1.5%;
+    padding: .5%;
+    font-family: "Poiret One";
+    font-size: 18px;
+  }
+h1{
+  width: 50%;
+  margin: 5% 2%;
+  font-size: 25px;
+  text-align: center;
+}
+h2 {
+  font-weight: bolder;
+  border-bottom: 1px solid skyblue;
+  text-align: center;
+  width: 50%;
+  margin: 2%;
+  font-size: 20px;
+}
+
+h2.create {
+  color: rgb(71, 193, 214);
+  border: 1px solid skyblue;
+  margin: 5% 2%;
+}
+
+h3,a {
+  margin: 2% 5%;
+}
+
+h3 {
+  font-weight: lighter;
+  border: 1px solid transparent;
+  width: 100%;
+  margin: 2% 5%;
+  font-size: 16px;
+}
+
+a {
+  width: 100%;
+  padding:1.5%;
+  text-decoration: none;
+  color: rgb(75, 75, 75); 
+}
+
